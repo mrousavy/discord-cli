@@ -6,6 +6,8 @@ A bot to write on the command line interface.
     <img src="img/demo.gif" alt="Demo GIF" />
 </div>
 
+Add Bot Token to `token.txt` file (Get one at the [developer portal](https://discordapp.com/developers/applications/)) and run bot:
+
 ```sh
 git clone https://github.com/mrousavy/discord-cli
 cd discord-cli
