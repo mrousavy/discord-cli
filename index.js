@@ -70,6 +70,7 @@ client.on('ready', () => {
     ui.updateBottomBar(`Logged in as ${client.user.tag}!`);
     console.log(`Logged in as ${client.user.tag}!`);
     console.log(`Invite link: ${clientInviteUrl}`);
+    console.log(`Run '>sc' to switch channel.\n\n`);
     selectChannel();
 });
 
