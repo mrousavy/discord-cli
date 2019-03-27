@@ -44,6 +44,8 @@ function selectChannel() {
             var channelIndex = parseInt(answers.index);
             channel = mapped[channelIndex];
             listen();
+        }).catch(e => {
+            console.log(e);
         });
 }
 
@@ -63,6 +65,8 @@ function listen() {
                 channel.send(input);
                 listen(channel);
             }
+        }).catch(e => {
+            console.log(e);
         });
 }
 
@@ -76,7 +80,8 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-    if (msg.channel.id == channel.id &&
+    if (channel &&
+        msg.channel.id == channel.id &&
         msg.member.id != client.user.id) {
         process.stdout.clearLine();
         process.stdout.cursorTo(0);
