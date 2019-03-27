@@ -1,11 +1,12 @@
 const Discord = require('discord.js');
 const inquirer = require('inquirer');
+const fs = require('fs');
 
 const client = new Discord.Client();
-const token = 'NTYwMzYxMjY1MTM5Mjg2MDE3.D3y1uA.jJ4yK5UuGJqK6oKiCHAjAvbWETA';
 const permissions = '68608';
 const clientId = '560361265139286017';
 const clientInviteUrl = `https://discordapp.com/oauth2/authorize?client_id=${clientId}&scope=bot&permissions=${permissions}`;
+const token = fs.readFileSync('token.txt', 'utf8').trim();
 
 var channel = null;
 
