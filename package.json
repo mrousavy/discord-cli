@@ -1,0 +1,27 @@
+{
+  "name": "discord-cli",
+  "version": "1.0.0",
+  "description": "CLI for discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrousavy/discord-cli.git"
+  },
+  "keywords": [
+    "cli",
+    "discord",
+    "bot"
+  ],
+  "author": "mrousavy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrousavy/discord-cli/issues"
+  },
+  "homepage": "https://github.com/mrousavy/discord-cli#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  }
+}
