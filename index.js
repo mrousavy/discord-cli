@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const inquirer = require('inquirer');
+const robot = require("robotjs");
 
 const client = new Discord.Client();
 const token = 'NTYwMzYxMjY1MTM5Mjg2MDE3.D3y1uA.jJ4yK5UuGJqK6oKiCHAjAvbWETA';
@@ -63,9 +64,10 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if (msg.member.id != client.user.id) {
-        process.stdout.write(`\n${msg.member.displayName}: ${msg.content}\n`);
-
-        // process.stdout.cursorTo(0);
+        process.stdout.clearLine();
+        process.stdout.cursorTo(0);
+        process.stdout.write(`${msg.member.displayName}> ${msg.content}\n`);
+        robot.keyTap('space');
     }
 });
 
