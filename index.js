@@ -1,7 +1,5 @@
-process.stdout.write("\x1Bc");
 const Discord = require('discord.js');
-const promptFixed = require("./fixedReadLine.js");
-
+const inquirer = require('inquirer');
 
 const client = new Discord.Client();
 const token = 'NTYwMzYxMjY1MTM5Mjg2MDE3.D3y1uA.jJ4yK5UuGJqK6oKiCHAjAvbWETA';
@@ -17,44 +15,44 @@ function selectChannel() {
         if (c && c.type == 'text')
             console.log(`  ${i}: ${c.name}`);
     });
-    console.log('Select channel index:');
-    promptFixed.on("line", function(line) {
-        var channelIndex = parseInt(input);
-        var channel = mapped[channelIndex];
-        listen(channel);
-    });
+
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'index',
+                message: "Select channel index:",
+                validate: function (value) {
+                    try {
+                        const index = parseInt(value);
+                        return index > 0 && index < mapped.length;
+                    } catch (e) { }
+                }
+            }
+        ]).then((answers) => {
+            var channelIndex = parseInt(answers.index);
+            var channel = mapped[channelIndex];
+            listen(channel);
+        });
 }
 
 function listen(channel) {
-    promptFixed.start();
-    promptFixed.setCompletion([">sc"]);
-
-    promptFixed.on("line", function(line) {
-        if (line == "pwd") {
-            console.log("toggle muted", !promptFixed.isMuted());
-            promptFixed.setMuted(!promptFixed.isMuted(), "> [hidden]");
-            return true;
-        }
-
-        if (promptFixed.isMuted())
-            promptFixed.setMuted(false);
-    });
-
-    promptFixed.on("SIGINT", function(rl) {
-        rl.question("Confirm exit : ", function(answer) {
-            console.log(arguments);
-            return (answer.match(/^o(ui)?$/i) || answer.match(/^y(es)?$/i)) ? process.exit(1) : rl.output.write("> ");
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'message',
+                message: `${channel.name}>`
+            }
+        ]).then((answers) => {
+            var input = answers.message;
+            if (input == ">sc") {
+                selectChannel();
+            } else {
+                channel.send(input);
+                listen(channel);
+            }
         });
-    });
-
-    // rl.question(`${channel.name}> `, (input) => {
-    //     if (input == ">sc") {
-    //         selectChannel();
-    //     } else {
-    //         channel.send(input);
-    //         listen(channel);
-    //     }
-    // });
 }
 
 client.on('ready', () => {
@@ -64,7 +62,11 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-    console.log(`${msg.member.displayName}: ${msg.content}`);
+    if (msg.member.id != client.user.id) {
+        process.stdout.write(`\n${msg.member.displayName}: ${msg.content}\n`);
+
+        // process.stdout.cursorTo(0);
+    }
 });
 
 client.login(token);
