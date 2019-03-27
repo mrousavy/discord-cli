@@ -23,7 +23,6 @@
   "homepage": "https://github.com/mrousavy/discord-cli#readme",
   "dependencies": {
     "discord.js": "^11.4.2",
-    "inquirer": "^6.2.2",
-    "robotjs": "^0.5.1"
+    "inquirer": "^6.2.2"
   }
 }
